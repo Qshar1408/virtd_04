@@ -66,6 +66,13 @@ CMD ["python", "main.py"]
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"] 
 ```
 
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_002.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_003.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_004.png)
+
+
 ---
 ### ВНИМАНИЕ!
 !!! В процессе последующего выполнения ДЗ НЕ изменяйте содержимое файлов в fork-репозитории! Ваша задача ДОБАВИТЬ 5 файлов: ```Dockerfile.python```, ```compose.yaml```, ```.gitignore```, ```.dockerignore```,```bash-скрипт```. Если вам понадобилось внести иные изменения в проект - вы что-то делаете неверно!
