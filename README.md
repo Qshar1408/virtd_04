@@ -80,10 +80,27 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
 
 ## Задача 2 (*)
 1. Создайте в yandex cloud container registry с именем "test" с помощью "yc tool" . [Инструкция](https://cloud.yandex.ru/ru/docs/container-registry/quickstart/?from=int-console-help)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_005.png)
+
 2. Настройте аутентификацию вашего локального docker в yandex container registry.
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_006.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_007.png)
+
 3. Соберите и залейте в него образ с python приложением из задания №1.
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_008.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_009.png)
+
 4. Просканируйте образ на уязвимости.
 5. В качестве ответа приложите отчет сканирования.
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_010.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_011.png)
 
 ## Задача 3
 1. Изучите файл "proxy.yaml"
