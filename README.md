@@ -51,10 +51,10 @@ See 'snap info docker' for additional versions.
 FROM python:3.12-slim
 
 ENV DB_HOST=172.20.0.10
+ENV DB_USER=${MYSQL_USER}
+ENV DB_NAME=${MYSQL_DATABASE}
+ENV DB_PASSWORD=${MYSQL_PASSWORD}
 ENV DB_TABLE=requests
-ENV DB_USER=root
-ENV DB_NAME=db1
-ENV DB_PASSWORD=12345
 
 WORKDIR /app
 COPY requirements.txt ./
@@ -113,7 +113,11 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
 - ```db```. image=mysql:8. Контейнер должен работать в bridge-сети с названием ```backend``` и иметь фиксированный ipv4-адрес ```172.20.0.10```. Явно перезапуск сервиса в случае ошибок. Передайте необходимые ENV-переменные для создания: пароля root пользователя, создания базы данных, пользователя и пароля для web-приложения.Обязательно используйте уже существующий .env file для назначения секретных ENV-переменных!
 
 ```bash
-web:
+include:
+  - proxy.yaml
+
+services:
+ web:
     build:
       context: ./                   # путь до докерфайла
       dockerfile: Dockerfile.python # имя докерфайла
@@ -125,9 +129,10 @@ web:
     environment:                    # блок переменных
       - TZ=Europe/Moscow            # установка часового пояса МСК
       - DB_HOST=db
-      - DB_USER=app
-      - DB_PASSWORD:${MYSQL_PASSWORD}
-      - DB_NAME=example
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_TABLE=requests
     networks:
       backend:                      # добавить в сеть backend
        ipv4_address: 172.20.0.5     # статический IPv4
@@ -149,8 +154,8 @@ web:
       - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER:${MYSQL_USER}
       - MYSQL_PASSWORD:${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE:${MYSQL_DATABASE}
+      - MYSQL_TABLE:requests
     networks:
       backend:
         ipv4_address: 172.20.0.10
@@ -161,9 +166,17 @@ volumes:
 
 2. Запустите проект локально с помощью docker compose , добейтесь его стабильной работы: команда ```curl -L http://127.0.0.1:8090``` должна возвращать в качестве ответа время и локальный IP-адрес. Если сервисы не стартуют воспользуйтесь командами: ```docker ps -a ``` и ```docker logs <container_name>``` . Если вместо IP-адреса вы получаете информационную ошибку --убедитесь, что вы шлете запрос на порт ```8090```, а не 5000.
 
-5. Подключитесь к БД mysql с помощью команды ```docker exec -ti <имя_контейнера> mysql -uroot -p<пароль root-пользователя>```(обратите внимание что между ключем -u и логином root нет пробела. это важно!!! тоже самое с паролем) . Введите последовательно команды (не забываем в конце символ ; ): ```show databases; use <имя вашей базы данных(по-умолчанию example)>; show tables; SELECT * from requests LIMIT 10;```.
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_012.png)
 
-6. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_015.png)
+
+3. Подключитесь к БД mysql с помощью команды ```docker exec -ti <имя_контейнера> mysql -uroot -p<пароль root-пользователя>```(обратите внимание что между ключем -u и логином root нет пробела. это важно!!! тоже самое с паролем) . Введите последовательно команды (не забываем в конце символ ; ): ```show databases; use <имя вашей базы данных(по-умолчанию example)>; show tables; SELECT * from requests LIMIT 10;```.
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_013.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_014.png)
+
+4. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
 
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
