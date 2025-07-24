@@ -219,8 +219,15 @@ echo "List of containers"
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
 Предоставьте скриншоты  действий .
 
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_021.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_022.png)
+
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_023.png)
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
+![virtd_04](https://github.com/Qshar1408/virtd_04/blob/main/img/virtd_024.png)
 
